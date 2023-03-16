@@ -17,7 +17,7 @@ namespace NewGraph {
 
         private VisualElement commandPanel;
         private VisualElement inspectorRoot;
-        private Button createButton, /*saveButton,*/ loadButton, homeButton, inspectorButton;
+        private Button createButton, homeButton, inspectorButton;
         private Label multipleNodesSelected;
         private VisualElement inspectorContainer;
         private VisualElement selectedNodeInspector;
