@@ -167,45 +167,19 @@ namespace NewGraph {
         /// <summary>
         /// called when the create button was clicked.
         /// </summary>
+        /// <summary>
+        /// called when the create button was clicked.
+        /// </summary>
         private void CreateButtonClicked() {
             OnCreateButtonClicked?.Invoke();
+            
+            GameObject newGraph = new GameObject { name = "New Graph" };
+            T graphData = newGraph.AddComponent<T>();
 
-            string fileEnding = "asset";
+            CreateRenameGraphUI(graphData);
+            Clear();
 
-            // retrieve the last opened folder
-            string lastOpenedDirectoryGUID = EditorPrefs.GetString(GraphSettings.lastOpenedDirectoryPrefsKey, null);
-            string lastFolder = "";
-            if (lastOpenedDirectoryGUID != null) {
-                lastFolder = AssetDatabase.GUIDToAssetPath(lastOpenedDirectoryGUID);
-                if (lastFolder == null) {
-                    lastFolder = "";
-                }
-            }
-
-            // generate a unique filename that avoids conflicts
-            string uniqueFilename = Path.Combine(lastFolder, typeof(T).Name + "."+ fileEnding);
-            if (File.Exists(uniqueFilename)) {
-                uniqueFilename = AssetDatabase.GenerateUniqueAssetPath(uniqueFilename);
-            }
-            uniqueFilename = Path.GetFileName(uniqueFilename);
-
-            // show the dialog
-            string path = EditorUtility.SaveFilePanel("Create New Graph", lastFolder, uniqueFilename, fileEnding);
-            if (path.Length != 0) {
-                T graphData = ScriptableObject.CreateInstance<T>();
-                path= path.Substring(Application.dataPath.Length-6);
-
-                // save the last selcted folder
-                string folder = AssetDatabase.AssetPathToGUID(Path.GetDirectoryName(path));
-                EditorPrefs.SetString(GraphSettings.lastOpenedDirectoryPrefsKey, folder);
-
-                AssetDatabase.CreateAsset(graphData, path);
-                AssetDatabase.SaveAssets();
-                CreateRenameGraphUI(graphData);
-                Clear();
-
-                OnAfterGraphCreated?.Invoke(graphData);
-            }
+            OnAfterGraphCreated?.Invoke(graphData);
         }
 
         /// <summary>

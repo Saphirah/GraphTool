@@ -28,26 +28,7 @@ namespace NewGraph {
             }
         }
 
-        public static GraphModel LastOpenedGraphModel {
-            get {
-                if (EditorPrefs.HasKey(lastOpenedGraphEditorPrefsKey)) {
-                    string lastOpenedGraphGUID = EditorPrefs.GetString(lastOpenedGraphEditorPrefsKey, null);
-                    if (!string.IsNullOrWhiteSpace(lastOpenedGraphGUID)) {
-                        string assetPath = AssetDatabase.GUIDToAssetPath(lastOpenedGraphGUID);
-                        if (!string.IsNullOrWhiteSpace(assetPath)) {
-                            return AssetDatabase.LoadAssetAtPath<GraphModel>(assetPath);
-                        }
-                    }
-                }
-                return null;
-            }
-            set {
-                string assetPath = AssetDatabase.GetAssetPath(value);
-                if (!string.IsNullOrWhiteSpace(assetPath)) {
-                    EditorPrefs.SetString(lastOpenedGraphEditorPrefsKey, AssetDatabase.AssetPathToGUID(assetPath));
-                }
-            }
-        }
+        public static GraphModel LastOpenedGraphModel;
 
         public string searchWindowCommandHeader = "Commands";
         public string searchWindowRootHeader = "Create Nodes";
