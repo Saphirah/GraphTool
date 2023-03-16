@@ -43,16 +43,6 @@ namespace NewGraph {
             createButton.clicked += CreateButtonClicked;
             createButton.Add(GraphSettings.CreateButtonIcon);
 
-            /*
-            saveButton = commandPanel.Q<Button>(nameof(saveButton));
-            saveButton.clicked += SaveButtonClicked;
-            saveButton.Add(GraphSettings.SaveButtonIcon);
-            */
-
-            loadButton = commandPanel.Q<Button>(nameof(loadButton));
-            loadButton.clicked += LoadButtonClicked;
-            loadButton.Add(GraphSettings.LoadButtonIcon);
-
             homeButton = commandPanel.Q<Button>(nameof(homeButton));
             homeButton.clicked += HomeButtonClicked;
             homeButton.Add(GraphSettings.HomeButtonIcon);
